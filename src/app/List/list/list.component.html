@@ -1,0 +1,17 @@
+<div class="row">
+        <div class="col-md-4 col-sm-6 mt-5" *ngFor="let book of books">
+            <div class="card pie-card">
+                <img src={{book.ImageUrl}} class="card-img-top rounded-lg" alt={{book.Title}}>
+                <div class="card-body pie-button">
+                    <h4 class="d-grid">
+                    </h4>
+
+                    <div class="d-flex justify-content-between mt-1">
+                        <h2 class="text-start">
+                            <a class="pie-link">{{book.Title}}</a>
+                        </h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
