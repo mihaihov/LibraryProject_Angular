@@ -4,5 +4,5 @@ export interface IBookRepository
 {
     AllBooks() : Book[];
     BooksOfTheMonth() : Book[];
-    GetBookById() : Book;
+    GetBookById(id : number) : Book;
 }

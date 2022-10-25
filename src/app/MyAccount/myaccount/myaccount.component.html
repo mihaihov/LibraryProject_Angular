@@ -1,0 +1,84 @@
+<div class="container py-4">
+    <div class="row d-flex justify-content-center">
+      <div class="col col-lg-6 mb-4 mb-lg-0">
+        <div class="card mb-3">
+          <div class="row g-0">
+            <div class="col-md-4 gradient-custom text-center text-white">
+              <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-chat/ava1-bg.webp"
+                alt="Avatar" class="img-fluid my-5" style="width: 80px;" />
+              <h5>{{currentCustomer?.Email}}</h5>
+                 <p *ngIf="currentCustomer?.Status; else notActiveMember">Status: Active</p>
+                 <ng-template #notActiveMember>
+                    <p>Status: Inactive</p>
+                 </ng-template>
+              <i class="far fa-edit mb-5"></i>
+            </div>
+            <div class="col-md-8">
+              <div class="card-body p-4">
+                <h6>Information</h6>
+                <hr class="mt-0 mb-4">
+                <div class="row pt-1">
+                  <div class="col-9 mb-3">
+                    <h6>Email</h6>
+                    <p class="text-muted">{{currentCustomer?.Email}}</p>
+                  </div>
+                  <div class="col-3 mb-3">
+                    <h6>Age</h6>
+                    <p class="text-muted">{{currentCustomer?.Age}}</p>
+                  </div>
+                </div>
+                <h6>Personal information</h6>
+                <hr class="mt-0 mb-4">
+                <div class="row pt-1">
+                  <div class="col-6 mb-3">
+                    <h6>CNP</h6>
+                    <p class="text-muted">{{currentCustomer?.CNP}}</p>
+                  </div>
+                  <div class="col-6 mb-3">
+                    <h6>Date joined</h6>
+                    <p class="text-muted">{{currentCustomer?.DateJoined}}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+</div>
+<div class="col-md-4 offset-4" *ngIf="loansByCustomer().length < 1; else customerHasLoans">
+    <h4 class="text-center">You have not borrowed any boot yet!</h4>
+</div>
+<ng-template #customerHasLoans>
+        <table class="table align-middle mb-0 bg-white">
+            <thead class="gradient-custom">
+                <tr>
+                    <th>Book</th>
+                    <th>Date borrowed</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                    <tr *ngFor="let l of loansByCustomer()">
+                        <td>
+                            <div class="d-flex align-items-center">
+                                <img [src]="l.Book.ImageUrl"
+                         alt=""
+                         style="width: 45px; height: 45px"
+                         class="rounded-circle" />
+                                <div class="ms-3">
+                                    <p class="fw-bold mb-1">{{l.Book.Title}}</p>
+                                    <p class="text-muted mb-0">{{l.Book.Author.Name}}</p>
+                                </div>
+                            </div>
+                        </td>
+                        <td>{{l.DateBorrowed | date:'mediumDate'}}</td>
+                        <td>
+                            <button  class="btn btn-link btn-sm btn-rounded" (click)="returnBook(l)">
+                                Return Book
+                            </button>
+                        </td>
+                    </tr>
+            </tbody>
+        </table>
+</ng-template>

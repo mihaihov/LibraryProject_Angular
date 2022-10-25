@@ -7,9 +7,10 @@ import { IAuthorRepository } from "./IAuthorRepository";
 })
 export class MockAuthorRepository implements IAuthorRepository
 {
+    private _allAuthors : Author[] = [];
+
     public AllAuthors(): Author[] {
-        let a : Array<Author> = [];
-        a.push(
+        this._allAuthors.push(
             {Id : 1, Name : "George Orwell", Age : 51, CNP:"15101011234" },
             {Id : 2, Name : "Stephen Hawking", Age : 47, CNP:"178121014321" },
             {Id : 3, Name : "Dave Eggers", Age : 83, CNP:"13702047865" },
@@ -18,7 +19,7 @@ export class MockAuthorRepository implements IAuthorRepository
             {Id : 6, Name : "DavId Sedaris", Age : 48, CNP:"15409016510" },
         );
 
-        return a;
+        return this._allAuthors;
     }
 
     public GetAuthorById(id : number) : any {

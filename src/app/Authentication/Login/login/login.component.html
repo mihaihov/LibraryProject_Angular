@@ -1,0 +1,25 @@
+<div>
+    <h3 class="my-5">
+        Please log in to continue!
+    </h3>
+
+    <form (submit)="formSubmit()" [formGroup]="loginForm" novalidate>
+        <div class="col-6">
+            <div class="row g-2">
+                <div class="col-12">
+                    <label>User Name</label>
+                    <input class="form-control" formControlName="userName"[(ngModel)]="UserName"/>
+                    <small class="text-danger" *ngIf="formIsValid">{{userNameFieldMessage}}</small>
+                </div>
+                <div class="col-12">
+                    <label>Password</label>
+                    <input type="password" class="form-control" formControlName="password" [(ngModel)]="Password"/>
+                    <small class="text-danger" *ngIf="formIsValid">{{passwordFieldMessage}}</small>
+                </div>
+                <div>
+                    <button type="submit" class="btn btn-primary"><strong>Log in</strong></button>
+                </div>
+            </div>
+        </div>
+    </form>
+</div>

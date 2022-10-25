@@ -8,12 +8,13 @@ import { Injectable } from "@angular/core";
 })
 export class MockBookRepository implements IBookRepository
 {
+        public _allBooks : Book[] = [];
+
     constructor(private _authorRepository : MockAuthorRepository){}
 
 
     AllBooks(): Book[] {
-        let b : Array<Book> = [];
-        b.push( {Id : 1, Title : "Animal Farm", ImageUrl : "https://m.media-amazon.com/images/I/41EorocZJaL.jpg",
+        this._allBooks.push( {Id : 1, Title : "Animal Farm", ImageUrl : "https://m.media-amazon.com/images/I/41EorocZJaL.jpg",
                             Cathegory : "Political", PublicationYear:2022, CopiesAvailable : 15, Description : "A farm is taken over by its overworked, mistreated animals. With flaming Idealism and stirring slogans, they embark on the creation of a paradise of progress, justice, and equality. Thus the stage is set for one of the most telling satiric fables ever penned -- a razor-edged fairy tale for grown-ups that records the evolution from revolution against tyranny to a totalitarianism just as terrible. When Animal Farm was first published fifty years ago, Stalinist Russia was seen as its target. Today it is devastatingly clear that wherever and whenever freedom is attacked, under whatever banner; the cutting clarity and savage comedy of George Orwell's masterpiece have a meaning and message still ferociously fresh.",
                             IsBookOfTheMonth : false, Author : this._authorRepository.GetAuthorById(1)},
                 {Id : 2, Title : "The Graphical Novel", ImageUrl : "https://m.media-amazon.com/images/I/41gYZQ5LPKL._SY346_.jpg",
@@ -73,13 +74,15 @@ export class MockBookRepository implements IBookRepository
                 {Id : 20, Title : "The Best of Me", ImageUrl : "https://m.media-amazon.com/images/I/41laR4e-mVL.jpg",
                         Cathegory : "Romance", PublicationYear:2020, CopiesAvailable : 81, Description : "For more than twenty-five years, DavId Sedaris has been carving out a unique literary space, virtually creating his own genre. A Sedaris story may seem confessional, but is also highly attuned to the world outsIde. It opens our eyes to what is at absurd and moving about our daily existence. And it is almost impossible to read without laughing.",
                         IsBookOfTheMonth : false, Author : this._authorRepository.GetAuthorById(6)});
-        return b;
+        return this._allBooks;
     }
     BooksOfTheMonth(): Book[] {
-        throw new Error("Method not implemented.");
+        if(this._allBooks.length < 1)  this.AllBooks();
+        return this._allBooks.filter(b => {return b.IsBookOfTheMonth == true});
     }
-    GetBookById(): Book {
-        throw new Error("Method not implemented.");
+    GetBookById(id : number): Book {
+        if(this._allBooks.length < 1)  this.AllBooks();
+        return this._allBooks.filter(b => {return b.Id == id})[0];
     }
     
 }

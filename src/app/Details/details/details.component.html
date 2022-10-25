@@ -1,1 +1,34 @@
-<p>details works!</p>
+<h3 class="my-5">
+    {{book.Title}}
+</h3>
+
+<div class="row">
+    <img alt={{book.Title}} src={{book.ImageUrl}} class="imageDetailPageClass col-md-3" />
+    <div class="col-md-7 offset-md-2">
+        <div class="row">
+            <h3><small class="text-muted">About this book</small></h3>
+            <p class=" text-justify text-primary">{{book.Description}}</p>
+        </div>
+        <div class ="row mx-5">
+        <ul class="col-md-5">
+            <li>
+                <h6><strong>Publication year: {{book.PublicationYear}}</strong></h6>
+            </li>
+            <li>
+                <h6><strong>Cathegory: {{book.Cathegory}}</strong></h6>
+            </li>            
+            <li>
+                <h6><mark>Copies available: {{book.CopiesAvailable}}</mark></h6>
+            </li>
+        </ul>
+        </div>
+        <div class="row mx-2 mt-5">
+            <button class="col-md-5 btn btn-success" (click)="loanBook()">
+                <strong>
+                    Loan Book
+                </strong>
+            </button>
+        </div>
+    </div>
+</div>
+
