@@ -8,6 +8,12 @@ import {ICustomerRepository} from "./ICustomerRepository"
 })
 export class MockCustomerRepository implements ICustomerRepository
 {
+    GetCustomerByIdObs(id: number): Observable<Customer> {
+        throw new Error("Method not implemented.");
+    }
+    GetCustomerByEmailObs(email: string): Observable<Customer> {
+        throw new Error("Method not implemented.");
+    }
     GetCustomerByCredentialsObs(username : string, password: string): Observable<Customer> {
         throw new Error("Method not implemented.");
     }

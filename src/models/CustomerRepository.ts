@@ -11,6 +11,8 @@ export class CustomerRepository implements ICustomerRepository
 {
     private allCustomersURI : string = "";
     private customerByCredentialsURI = "";
+    private customerByIdURI = "";
+    private customerByEmailURI = "";
     private Customers! : Customer[];
 
     constructor(private client : HttpClient)
@@ -18,6 +20,14 @@ export class CustomerRepository implements ICustomerRepository
         this.allCustomersURI = "https://localhost:7244/api/customer/allcustomers";
         this.customerByCredentialsURI = "https://localhost:7244/api/customer/getcustomerbycredentials";
         this.Customers = [];
+    }
+    GetCustomerByIdObs(id: number): Observable<Customer> {
+        this.customerByIdURI = "https://localhost:7244/api/customer/getcustomerbyid/" + id;
+        return this.client.get<Customer>(this.customerByIdURI);
+    }
+    GetCustomerByEmailObs(email: string): Observable<Customer> {
+        this.customerByEmailURI = "https://localhost:7244/api/customer/getcustomerbyemail/" + email;
+        return this.client.get<Customer>(this.customerByEmailURI);
     }
     GetCustomerByCredentialsObs(username : string, password: string): Observable<Customer> {
         this.customerByCredentialsURI = "https://localhost:7244/api/customer/getcustomerbycredentials"

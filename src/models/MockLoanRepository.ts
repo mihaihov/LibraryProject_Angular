@@ -14,6 +14,18 @@ export class MockLoanRepository implements ILoanRepository
     public _allLoans : Loan[] = [];
 
     constructor(private _customerRepository : MockCustomerRepository, private _bookRepository: MockBookRepository){}
+    CheckIfBookIsAlreadyLoanedByCustomerObs(bookId: number): Observable<boolean> {
+        throw new Error("Method not implemented.");
+    }
+    GetLoanByIdObs(id: number): Observable<Loan> {
+        throw new Error("Method not implemented.");
+    }
+    GetAllLoansByCustomerObs(customerId: number): Observable<Loan[]> {
+        throw new Error("Method not implemented.");
+    }
+    GetAllLoansByBookObs(bookId: number): Observable<Loan[]> {
+        throw new Error("Method not implemented.");
+    }
     AllLoansObs(): Observable<Loan[]> {
         throw new Error("Method not implemented.");
     }

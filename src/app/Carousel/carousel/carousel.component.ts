@@ -17,9 +17,9 @@ export class CarouselComponent implements OnInit, OnDestroy {
   constructor(private _bookRepository : BookRepository) { }
 
   ngOnInit(): void {
-    this.sub = this._bookRepository.AllBooksObs().subscribe({
-      next: b=> {this.booksOfTheMonth = b.filter(bo => {return bo.IsBookOfTheMonth == true})}
-    })
+    this.sub = this._bookRepository.BooksOfTheMonthObs().subscribe({
+      next: b => {this.booksOfTheMonth = b;}
+    });
   }
 
   ngOnDestroy(): void {

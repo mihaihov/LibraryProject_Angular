@@ -10,5 +10,7 @@ export interface ICustomerRepository
     RegisterNewCustomer(customer : Customer) : object;
     AllCustomersObs() : Observable<Customer[]>;
     GetCustomerByCredentialsObs(username : string, password: string) : Observable<Customer>;
+    GetCustomerByIdObs(id : number) : Observable<Customer>;
+    GetCustomerByEmailObs(email : string) : Observable<Customer>;
 
 }

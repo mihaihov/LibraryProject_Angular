@@ -13,12 +13,22 @@ export class BookRepository implements IBookRepository
     private BooksOTM : Book[];
 
     private allBooksURI : string = "";
+    private bookByIdURI : string = "";
+    private booksOfTheMonthURI : string = "";
 
     constructor (private client : HttpClient) 
     {
         this.Books = [];
         this.BooksOTM = [];
         this.allBooksURI = "https://localhost:7244/api/book/allbooks";
+        this.booksOfTheMonthURI = "https://localhost:7244/api/book/booksofthemonth"
+    }
+    GetBookByIdObs(id: number): Observable<Book> {
+        this.bookByIdURI = "https://localhost:7244/api/book/getbookbyid/"+id;
+        return this.client.get<Book>(this.bookByIdURI);
+    }
+    BooksOfTheMonthObs(): Observable<Book[]> {
+        return this.client.get<Book[]>(this.booksOfTheMonthURI);
     }
 
     AllBooksObs(): Observable<Book[]> {

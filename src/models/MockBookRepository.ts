@@ -12,6 +12,12 @@ export class MockBookRepository implements IBookRepository
         public _allBooks : Book[] = [];
 
     constructor(private _authorRepository : MockAuthorRepository){}
+        GetBookByIdObs(id: number): Observable<Book> {
+                throw new Error("Method not implemented.");
+        }
+        BooksOfTheMonthObs(): Observable<Book[]> {
+                throw new Error("Method not implemented.");
+        }
         AllBooksObs(): Observable<Book[]> {
                 throw new Error("Method not implemented.");
         }

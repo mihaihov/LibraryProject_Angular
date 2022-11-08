@@ -8,6 +8,9 @@ import { IAuthorRepository } from "./IAuthorRepository";
 })
 export class MockAuthorRepository implements IAuthorRepository
 {
+    GetAuthorByIdObs(id: number): Observable<Author> {
+        throw new Error("Method not implemented.");
+    }
     AllAuthorsObs(): Observable<Author[]> {
         throw new Error("Method not implemented.");
     }

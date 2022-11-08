@@ -6,4 +6,5 @@ export interface IAuthorRepository
     AllAuthors() : Author[];
     GetAuthorById(id : number) : Author;
     AllAuthorsObs() : Observable<Author[]>
+    GetAuthorByIdObs(id: number) : Observable<Author>;
 }

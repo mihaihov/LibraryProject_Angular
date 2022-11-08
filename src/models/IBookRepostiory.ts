@@ -7,4 +7,6 @@ export interface IBookRepository
     BooksOfTheMonth() : Book[];
     GetBookById(id : number) : Book;
     AllBooksObs() : Observable<Book[]>
+    GetBookByIdObs(id : number) : Observable<Book>;
+    BooksOfTheMonthObs() : Observable<Book[]>;
 }
