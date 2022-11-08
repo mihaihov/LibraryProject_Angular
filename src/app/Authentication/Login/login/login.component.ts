@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormGroup, FormBuilder, Validators, ValidationErrors} from '@angular/forms'
 import { Router } from '@angular/router';
 import { AuthenticationManager } from 'src/models/AuthenticationManager';
+import { CustomerRepository } from 'src/models/CustomerRepository';
 import { MockCustomerRepository } from 'src/models/MockCustomerRepository';
 
 @Component({
@@ -19,7 +20,7 @@ export class LoginComponent implements OnInit {
 
 
   loginForm : FormGroup;
-  constructor(private fb : FormBuilder, private _customerRepository : MockCustomerRepository, private router: Router) { 
+  constructor(private fb : FormBuilder, private _customerRepository : CustomerRepository, private router: Router) { 
     this.loginForm = this.fb.group({
       userName: ['',[Validators.required,Validators.minLength(3)]],
       password: ['',[Validators.required,Validators.minLength(3)]]
@@ -43,17 +44,24 @@ export class LoginComponent implements OnInit {
       }
       return;
     }
+    this._customerRepository.GetCustomerByCredentialsObs(this.UserName,this.Password).subscribe({
+      next: b => {
+        if(b)
+        {
+          AuthenticationManager.Instance.CurrentCustomer = b;
+          AuthenticationManager.Instance.IsLoggedIn = true;
+          AuthenticationManager.Instance.CurrentCustomerUserName = AuthenticationManager.Instance.CurrentCustomer.Email;
+          this.router.navigate(['/carousel']);
+          return;
+        }
+        else
+        {
+          console.log("Unknown user!");
+        }
+      }
+    })
 
-    if(this._customerRepository.GetCustomerByCredentials(this.UserName,this.Password))
-    {
-      AuthenticationManager.Instance.CurrentCustomer = this._customerRepository.GetCustomerByCredentials(this.UserName,this.Password);
-      AuthenticationManager.Instance.IsLoggedIn = true;
-      AuthenticationManager.Instance.CurrentCustomerUserName = AuthenticationManager.Instance.CurrentCustomer.Email;
-      this.router.navigate(['/carousel']);
-      return;
-    }
 
-    console.log("Unknown user!");
 
   }
 }

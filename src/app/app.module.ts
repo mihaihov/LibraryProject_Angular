@@ -13,6 +13,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MyaccountComponent } from './MyAccount/myaccount/myaccount.component'
 import { MyaccountGuard } from './Guards/MyAccount/myaccount.guard';
 import { LoanedComponent } from './Loaned/loaned/loaned.component';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { LoanedComponent } from './Loaned/loaned/loaned.component';
       {path: '', redirectTo: 'carousel', pathMatch: 'full'},
       {path: '**', redirectTo: 'carousel', pathMatch: 'full'}
     ]),
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HttpClientModule
   ],
   providers: [],
   bootstrap: [HomeComponent]

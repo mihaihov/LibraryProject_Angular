@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { Book } from 'src/models/Book';
+import { BookRepository } from 'src/models/BookRepository';
 import { MockBookRepository } from 'src/models/MockBookRepository';
 
 @Component({
@@ -9,11 +11,14 @@ import { MockBookRepository } from 'src/models/MockBookRepository';
 })
 export class ListComponent implements OnInit {
   public books : Book[] = [];
+  private sub! : Subscription;
 
-  constructor(private _bookRepository : MockBookRepository) { }
+  constructor(private _bookRepository : BookRepository) { }
 
   ngOnInit(): void {
-    this.books = this._bookRepository.AllBooks();
+    this.sub = this._bookRepository.AllBooksObs().subscribe({
+      next: b => {this.books = b;}
+    })
   }
 
 }

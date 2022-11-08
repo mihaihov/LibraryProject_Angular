@@ -1,3 +1,4 @@
+import { Observable } from "rxjs";
 import { Loan } from "./Loan";
 
 export interface ILoanRepository
@@ -9,4 +10,5 @@ export interface ILoanRepository
     CheckIfBookIsAlreadyLoanedByCustomer(bookId : number) : boolean;
     AddLoanToDb(l : Loan) : void;
     RemoveLoanFromDb(l: Loan) : void;
+    AllLoansObs() : Observable<Loan[]>;
 }

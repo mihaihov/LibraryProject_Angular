@@ -1,5 +1,6 @@
 import { Injectable } from "@angular/core";
 import { bootstrapApplication } from "@angular/platform-browser";
+import { Observable } from "rxjs";
 import { AuthenticationManager } from "./AuthenticationManager";
 import { ILoanRepository } from "./ILoanRepository";
 import { Loan } from "./Loan";
@@ -13,6 +14,9 @@ export class MockLoanRepository implements ILoanRepository
     public _allLoans : Loan[] = [];
 
     constructor(private _customerRepository : MockCustomerRepository, private _bookRepository: MockBookRepository){}
+    AllLoansObs(): Observable<Loan[]> {
+        throw new Error("Method not implemented.");
+    }
 
     AllLoans(): Loan[] {
         this._allLoans.push(

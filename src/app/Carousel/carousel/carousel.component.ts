@@ -1,5 +1,8 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Subscription } from 'rxjs';
+import { HttpRequestsService } from 'src/app/Utils/http-requests.service';
 import { Book } from 'src/models/Book';
+import { BookRepository } from 'src/models/BookRepository';
 import { MockBookRepository } from 'src/models/MockBookRepository';
 
 @Component({
@@ -7,13 +10,19 @@ import { MockBookRepository } from 'src/models/MockBookRepository';
   templateUrl: './carousel.component.html',
   styleUrls: ['./carousel.component.css']
 })
-export class CarouselComponent implements OnInit {
+export class CarouselComponent implements OnInit, OnDestroy {
   public booksOfTheMonth! : Book[];
+  public sub! : Subscription;
 
-  constructor(private _mockBookRepository : MockBookRepository) { }
+  constructor(private _bookRepository : BookRepository) { }
 
   ngOnInit(): void {
-    this.booksOfTheMonth = this._mockBookRepository.BooksOfTheMonth();
+    this.sub = this._bookRepository.AllBooksObs().subscribe({
+      next: b=> {this.booksOfTheMonth = b.filter(bo => {return bo.IsBookOfTheMonth == true})}
+    })
   }
 
+  ngOnDestroy(): void {
+    if(this.sub) this.sub.unsubscribe();
+  }
 }

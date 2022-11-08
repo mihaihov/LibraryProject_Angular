@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { AuthenticationManager } from 'src/models/AuthenticationManager';
 import { Book } from 'src/models/Book';
+import { BookRepository } from 'src/models/BookRepository';
 import { MockBookRepository } from 'src/models/MockBookRepository';
 import { MockLoanRepository } from 'src/models/MockLoanRepository';
 
@@ -15,12 +16,12 @@ export class DetailsComponent implements OnInit {
   public book! : Book;
   private id : number = 0;
 
-  constructor(private route : ActivatedRoute, private _mockBookRepository : MockBookRepository,
+  constructor(private route : ActivatedRoute, private _bookRepository : BookRepository,
     private _mockLoanRepository : MockLoanRepository, private router: Router) {}
 
   ngOnInit(): void {
     this.id = Number(this.route.snapshot.paramMap.get('id'));
-    this.book = this._mockBookRepository.GetBookById(this.id);
+    this.book = this._bookRepository.GetBookById(this.id);
   }
 
   public loanBook()
@@ -34,7 +35,7 @@ export class DetailsComponent implements OnInit {
           {
             Id: this._mockLoanRepository._allLoans[this._mockLoanRepository._allLoans.length - 1].Id + 1,
             DateBorrowed: new Date(Date.now()), Status: 1, Customer: AuthenticationManager.Instance.CurrentCustomer,
-            Book: this._mockBookRepository.GetBookById(this.id)
+            Book: this._bookRepository.GetBookById(this.id)
           }
         )
         this.router.navigate(['loaned']); 

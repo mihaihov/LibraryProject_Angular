@@ -1,4 +1,5 @@
 import { Injectable } from "@angular/core";
+import { Observable } from "rxjs";
 import { Author } from "./Author";
 import { IAuthorRepository } from "./IAuthorRepository";
 
@@ -7,6 +8,9 @@ import { IAuthorRepository } from "./IAuthorRepository";
 })
 export class MockAuthorRepository implements IAuthorRepository
 {
+    AllAuthorsObs(): Observable<Author[]> {
+        throw new Error("Method not implemented.");
+    }
     private _allAuthors : Author[] = [];
 
     public AllAuthors(): Author[] {
@@ -22,8 +26,8 @@ export class MockAuthorRepository implements IAuthorRepository
         return this._allAuthors;
     }
 
-    public GetAuthorById(id : number) : any {
-        return this.AllAuthors().filter((a : Author) =>  a.Id == id);
+    public GetAuthorById(id : number) : Author {
+        return this.AllAuthors().filter((a : Author) =>  a.Id == id)[0];
     }
 
 }

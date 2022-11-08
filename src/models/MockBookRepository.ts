@@ -2,6 +2,7 @@ import { Book } from "./Book";
 import { IBookRepository } from "./IBookRepostiory";
 import { MockAuthorRepository } from "./MockAuthorRepository";
 import { Injectable } from "@angular/core";
+import { Observable } from "rxjs";
 
 @Injectable({
         providedIn: 'root'
@@ -11,6 +12,9 @@ export class MockBookRepository implements IBookRepository
         public _allBooks : Book[] = [];
 
     constructor(private _authorRepository : MockAuthorRepository){}
+        AllBooksObs(): Observable<Book[]> {
+                throw new Error("Method not implemented.");
+        }
 
 
     AllBooks(): Book[] {

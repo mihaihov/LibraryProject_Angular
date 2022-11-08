@@ -1,4 +1,5 @@
 import { Injectable } from "@angular/core";
+import { Observable } from "rxjs";
 import { Customer } from "./Customer";
 import {ICustomerRepository} from "./ICustomerRepository"
 
@@ -7,6 +8,12 @@ import {ICustomerRepository} from "./ICustomerRepository"
 })
 export class MockCustomerRepository implements ICustomerRepository
 {
+    GetCustomerByCredentialsObs(username : string, password: string): Observable<Customer> {
+        throw new Error("Method not implemented.");
+    }
+    AllCustomersObs(): Observable<Customer[]> {
+        throw new Error("Method not implemented.");
+    }
     private _allCustomers : Customer[] = [];
 
     AllCustomers(): Customer[] {
