@@ -16,10 +16,25 @@ export class LoanRepository implements ILoanRepository
     private loansByCustomerURI : string ="";
     private loansByBookURI : string ="";
     private checkIfAlreadyLoanedByCustomerURI = "";
+    private loanToDbURI = "";
+    private removeLoanFromDbURI = "";
+    private getAllLoansByCustomerCompleteObjectURI : string = "";
 
     constructor(private client : HttpClient)
     {
         this.allLoansURI = "https://localhost:7244/api/loan/allloans";
+    }
+    GetAllLoansByCustomerCompleteObjectObs(customerId: number): Observable<any[]> {
+        this.getAllLoansByCustomerCompleteObjectURI = "https://localhost:7244/api/loan/GetAllLoansByCustomerCompleteObject/" + customerId;
+        return this.client.get<any[]>(this.getAllLoansByCustomerCompleteObjectURI);
+    }
+    AddLoanToDbObs(l: object): Observable<number> {
+        this.loanToDbURI = "https://localhost:7244/api/loan/addloantodb";
+        return this.client.post<number>(this.loanToDbURI,l);
+    }
+    RemoveLoanFromDbObs(l: number): Observable<number> {
+        this.removeLoanFromDbURI = "https://localhost:7244/api/loan/removeloan/"+l;
+        return this.client.delete<number>(this.removeLoanFromDbURI);
     }
     CheckIfBookIsAlreadyLoanedByCustomerObs(bookId: number): Observable<boolean> {
         this. checkIfAlreadyLoanedByCustomerURI = "https://localhost:7244/api/loan/CheckIfBookIsAlreadyLoanedByCustomer/"+bookId+"/"+AuthenticationManager.Instance.CurrentCustomer?.Id;
@@ -30,7 +45,7 @@ export class LoanRepository implements ILoanRepository
         return this.client.get<Loan>(this.loanByIdURI);
     }
     GetAllLoansByCustomerObs(customerId: number): Observable<Loan[]> {
-        this.loansByCustomerURI = "https://localhost:7244/api/loan/getloansbycustomer/"+customerId;
+        this.loansByCustomerURI = "https://localhost:7244/api/loan/getallloansbycustomer/"+customerId;
         return this.client.get<Loan[]>(this.loansByCustomerURI);
     }
     GetAllLoansByBookObs(bookId: number): Observable<Loan[]> {

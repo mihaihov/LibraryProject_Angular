@@ -13,6 +13,9 @@ export interface ILoanRepository
     AllLoansObs() : Observable<Loan[]>;
     GetLoanByIdObs(id : number) : Observable<Loan>;
     GetAllLoansByCustomerObs(customerId : number) : Observable<Loan[]>
+    GetAllLoansByCustomerCompleteObjectObs(customerId: number) : Observable<any[]>
     GetAllLoansByBookObs(bookId : number) : Observable<Loan[]>
     CheckIfBookIsAlreadyLoanedByCustomerObs(bookId : number) : Observable<boolean>;
+    AddLoanToDbObs(l : object) : Observable<number>;
+    RemoveLoanFromDbObs(l: number) : Observable<number>;
 }
